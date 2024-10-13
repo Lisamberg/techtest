@@ -1,0 +1,23 @@
+main {
+    display: flex;
+    flex-direction: column; /* Affiche les enfants en colonne */
+    align-items: center; /* Centre horizontalement les enfants */
+    min-height: 100vh; /* Prend toute la hauteur de la fenêtre */
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center; /* Centre l'image à l'intérieur du conteneur */
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.logo-container img {
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    flex-grow: 1; /* Prend l'espace disponible restant */
+}
