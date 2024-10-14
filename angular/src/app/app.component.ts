@@ -4,6 +4,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
+import { UserAdderButtonComponent } from './user-adder-button/user-adder-button.component';
 
 @Component({
     selector: 'app-root',
@@ -13,6 +14,7 @@ import { UserService } from './services/user.service';
         RouterLink,
         RouterLinkActive,
         UsersListComponent,
+        UserAdderButtonComponent,
         AddUserComponent,
         HttpClientModule,
     ],
