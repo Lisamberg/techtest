@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Adding User</h2>
+<mat-dialog-content>
+    <p>User information</p>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+        <mat-form-field>
+            <mat-label>FirstName</mat-label>
+            <input matInput [(ngModel)]="firstName" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>LastName</mat-label>
+            <input matInput [(ngModel)]="lastName" />
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<div style="display: flex; justify-content: flex-end">
+    <mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="onAdd()" cdkFocusInitial>Add</button>
+    </mat-dialog-actions>
+</div>
