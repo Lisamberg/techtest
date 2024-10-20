@@ -1,5 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAddingUserOverviewComponent } from '../modal-adding-user-overview/modal-adding-user-overview.component';
 
@@ -8,15 +7,10 @@ import { ModalAddingUserOverviewComponent } from '../modal-adding-user-overview/
     imports: [],
     template: `<div></div>`,
 })
-export class AddUserComponent implements OnDestroy {
-    destroy = new Subject<any>();
+export class AddUserComponent {
     currentDialog = null;
 
     constructor(private dialog: MatDialog) {
         this.dialog.open(ModalAddingUserOverviewComponent);
-    }
-
-    ngOnDestroy() {
-        this.destroy.next(true);
     }
 }
