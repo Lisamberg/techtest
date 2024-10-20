@@ -90,4 +90,14 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.dataSource.data = users;
         });
     }
+
+    deleteUser(id: string): void {
+        this.userService.deleteUser(id).subscribe({
+            next: (data) => {
+                //snackbar()
+                this.loadUsers();
+            },
+            error: (err) => console.error('Error fetching users:', err),
+        });
+    }
 }

@@ -25,3 +25,8 @@ main {
 a:-webkit-any-link {
     text-decoration: none;
 }
+
+.trash {
+    text-decoration: none;
+    cursor: pointer;
+}

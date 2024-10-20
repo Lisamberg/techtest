@@ -59,6 +59,7 @@
                 <th mat-header-cell *matHeaderCellDef>actions</th>
                 <td mat-cell *matCellDef="let user">
                     <a [routerLink]="['edit', user.id]">🖊️</a>
+                    <a (click)="deleteUser(user.id)" class="trash">🗑️</a>
                 </td>
             </ng-container>
 
