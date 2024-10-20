@@ -8,7 +8,7 @@ import { ModalAddingUserOverviewComponent } from '../modal-adding-user-overview/
     imports: [],
     template: `<div></div>`,
 })
-export class AddingUserComponent implements OnDestroy {
+export class AddUserComponent implements OnDestroy {
     destroy = new Subject<any>();
     currentDialog = null;
 

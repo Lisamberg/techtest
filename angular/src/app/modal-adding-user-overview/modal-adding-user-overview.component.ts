@@ -6,7 +6,7 @@ import {
     MatDialogRef,
     MatDialogTitle,
 } from '@angular/material/dialog';
-import { AddingUserComponent } from '../adding-user/adding-user.component';
+import { AddUserComponent } from '../add-user/add-user.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-modal-adding-user-overview',
@@ -40,7 +39,7 @@ export class ModalAddingUserOverviewComponent implements OnDestroy {
     shouldReloadUsersList = false;
 
     constructor(
-        public dialogRef: MatDialogRef<AddingUserComponent>,
+        public dialogRef: MatDialogRef<AddUserComponent>,
         public router: Router,
         private userService: UserService
     ) {}

@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { AddingUserComponent } from './adding-user/adding-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 export const routes: Routes = [
     {
         path: 'add',
-        component: AddingUserComponent,
+        component: AddUserComponent,
     },
 ];
