@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Modifier l'utilisateur</h2>
+<mat-dialog-content>
+    <p>Informations de l'utilisateur</p>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput [(ngModel)]="firstName" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Nom de famille</mat-label>
+            <input matInput [(ngModel)]="lastName" />
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<div style="display: flex; justify-content: flex-end">
+    <mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Quitter</button>
+        <button mat-button (click)="onUpdate()" cdkFocusInitial>
+            Modifier
+        </button>
+    </mat-dialog-actions>
+</div>

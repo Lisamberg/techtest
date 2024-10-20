@@ -46,7 +46,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     usersSubject = new BehaviorSubject<User[]>([]);
     dataSource = new MatTableDataSource<User>();
-    displayedColumns: string[] = ['No', 'ID', 'lastName', 'firstName'];
+    displayedColumns: string[] = [
+        'No',
+        'ID',
+        'lastName',
+        'firstName',
+        'actions',
+    ];
     shouldReloadUsersList = false;
 
     constructor(private userService: UserService, private router: Router) {}

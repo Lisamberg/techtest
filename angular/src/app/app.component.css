@@ -21,3 +21,7 @@ main {
     width: 100%;
     flex-grow: 1; /* Prend l'espace disponible restant */
 }
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
