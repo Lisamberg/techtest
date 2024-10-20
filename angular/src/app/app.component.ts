@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
+    NavigationEnd,
+    Router,
     RouterLink,
     RouterLinkActive,
     RouterModule,
@@ -14,7 +16,7 @@ import { UserService } from './services/user.service';
 
 import { User } from './models/user.model';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 import { AddingUserComponent } from './adding-user/adding-user.component';
 import { ModalAddingUserOverviewComponent } from './modal-adding-user-overview/modal-adding-user-overview.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,17 +48,35 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class AppComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-    displayedColumns: string[] = ['No', 'ID', 'lastName', 'firstName'];
-    private usersSubject = new BehaviorSubject<User[]>([]);
+    usersSubject = new BehaviorSubject<User[]>([]);
     dataSource = new MatTableDataSource<User>();
+    displayedColumns: string[] = ['No', 'ID', 'lastName', 'firstName'];
+    shouldReloadUsersList = false;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private router: Router) {}
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator as MatPaginator;
     }
 
     ngOnInit(): void {
+        this.router.events
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .subscribe(() => {
+                const navigation = this.router.getCurrentNavigation();
+                if (navigation?.extras.state) {
+                    this.shouldReloadUsersList =
+                        navigation.extras.state['shouldReloadUsersList'];
+                    if (this.shouldReloadUsersList) {
+                        this.loadUsers();
+                    }
+                }
+            });
+
+        this.loadUsers();
+    }
+
+    loadUsers(): void {
         this.userService.getUsers().subscribe({
             next: (data) => {
                 this.usersSubject.next(data);

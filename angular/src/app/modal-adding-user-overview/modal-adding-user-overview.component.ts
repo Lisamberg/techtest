@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-modal-adding-user-overview',
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class ModalAddingUserOverviewComponent implements OnDestroy {
     firstName = '';
     lastName = '';
+    shouldReloadUsersList = false;
 
     constructor(
         public dialogRef: MatDialogRef<AddingUserComponent>,
@@ -44,7 +46,11 @@ export class ModalAddingUserOverviewComponent implements OnDestroy {
     ) {}
 
     ngOnDestroy(): void {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/', {
+            state: {
+                shouldReloadUsersList: this.shouldReloadUsersList,
+            },
+        });
     }
 
     onNoClick(): void {
@@ -60,6 +66,7 @@ export class ModalAddingUserOverviewComponent implements OnDestroy {
             .subscribe({
                 next: (data) => {
                     this.dialogRef.close();
+                    this.shouldReloadUsersList = true;
                 },
                 error: (err) => console.error('Error fetching users:', err),
             });
