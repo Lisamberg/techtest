@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    OnInit,
+    ViewChild,
+    inject,
+} from '@angular/core';
 import {
     NavigationEnd,
     Router,
@@ -20,6 +26,8 @@ import { BehaviorSubject, filter } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-root',
@@ -43,6 +51,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class AppComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+    private _snackBar = inject(MatSnackBar);
 
     usersSubject = new BehaviorSubject<User[]>([]);
     dataSource = new MatTableDataSource<User>();
@@ -56,6 +65,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     shouldReloadUsersList = false;
 
     constructor(private userService: UserService, private router: Router) {}
+
+    openSnackBar(message: string) {
+        this._snackBar.open(message, '', {
+            duration: 2000,
+        });
+    }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator as MatPaginator;
@@ -94,7 +109,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     deleteUser(id: string): void {
         this.userService.deleteUser(id).subscribe({
             next: (data) => {
-                //snackbar()
+                this.openSnackBar('Utilisateur supprimé ✔️');
                 this.loadUsers();
             },
             error: (err) => console.error('Error fetching users:', err),

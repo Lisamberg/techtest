@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
 import {
     MatDialogActions,
     MatDialogClose,
@@ -15,6 +15,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-modal-updating-user-overview',
@@ -36,6 +37,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrl: './modal-updating-user-overview.component.css',
 })
 export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
+    _snackBar = inject(MatSnackBar);
     firstName = '';
     lastName = '';
     shouldReloadUsersList = false;
@@ -63,6 +65,16 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
         });
     }
 
+    isFormValid(): boolean {
+        const namePattern = /^[a-zA-Z\s'-]+$/; // Autorise uniquement les lettres, les espaces les tirets et les ' (O'connor)
+        return (
+            this.firstName.trim() !== '' &&
+            this.lastName.trim() !== '' &&
+            namePattern.test(this.firstName) &&
+            namePattern.test(this.lastName)
+        );
+    }
+
     ngOnDestroy(): void {
         this.router.navigateByUrl('/', {
             state: {
@@ -75,6 +87,12 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
         this.dialogRef.close();
     }
 
+    openSnackBar(message: string) {
+        this._snackBar.open(message, '', {
+            duration: 2000,
+        });
+    }
+
     async onUpdate(): Promise<void> {
         this.userService
             .updateUser({
@@ -84,6 +102,7 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
             })
             .subscribe({
                 next: (data) => {
+                    this.openSnackBar('Utilisateur modifié ✔️');
                     this.dialogRef.close();
                     this.shouldReloadUsersList = true;
                 },

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
     MatDialogActions,
     MatDialogClose,
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-modal-adding-user-overview',
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     styleUrl: './modal-adding-user-overview.component.css',
 })
 export class ModalAddingUserOverviewComponent implements OnDestroy {
+    _snackBar = inject(MatSnackBar);
     firstName = '';
     lastName = '';
     shouldReloadUsersList = false;
@@ -56,6 +58,22 @@ export class ModalAddingUserOverviewComponent implements OnDestroy {
         this.dialogRef.close();
     }
 
+    openSnackBar(message: string) {
+        this._snackBar.open(message, '', {
+            duration: 2000,
+        });
+    }
+
+    isFormValid(): boolean {
+        const namePattern = /^[a-zA-Z\s'-]+$/; // Autorise uniquement les lettres, les espaces les tirets et les ' (O'connor)
+        return (
+            this.firstName.trim() !== '' &&
+            this.lastName.trim() !== '' &&
+            namePattern.test(this.firstName) &&
+            namePattern.test(this.lastName)
+        );
+    }
+
     async onAdd(): Promise<void> {
         this.userService
             .addUser({
@@ -64,6 +82,7 @@ export class ModalAddingUserOverviewComponent implements OnDestroy {
             })
             .subscribe({
                 next: (data) => {
+                    this.openSnackBar('Utilisateur ajouté ✔️');
                     this.dialogRef.close();
                     this.shouldReloadUsersList = true;
                 },
