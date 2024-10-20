@@ -17,8 +17,6 @@ import { UserService } from './services/user.service';
 import { User } from './models/user.model';
 
 import { BehaviorSubject, filter } from 'rxjs';
-import { AddUserComponent } from './add-user/add-user.component';
-import { ModalAddingUserOverviewComponent } from './modal-adding-user-overview/modal-adding-user-overview.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -35,8 +33,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTableModule,
         MatPaginatorModule,
         RouterModule,
-        ModalAddingUserOverviewComponent,
-        AddUserComponent,
         MatIconModule,
         MatButtonModule,
         MatTooltipModule,
