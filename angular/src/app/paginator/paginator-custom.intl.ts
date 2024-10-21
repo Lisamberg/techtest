@@ -1,5 +1,7 @@
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
+//Because we don't use i18n
+
 export function getFrenchPaginatorIntl() {
     const paginatorIntl = new MatPaginatorIntl();
 

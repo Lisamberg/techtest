@@ -76,6 +76,10 @@ export class ModalAddingUserOverviewComponent
                             0
                         );
                     }
+                    console.log(
+                        "Erreur lors de la creation de l'utilisateur:",
+                        err
+                    );
                 },
             });
     }

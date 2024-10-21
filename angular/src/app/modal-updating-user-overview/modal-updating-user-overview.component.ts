@@ -56,11 +56,13 @@ export class ModalUpdatingUserOverviewComponent
                 this.firstName = data.firstName;
                 this.lastName = data.lastName;
             },
-            error: (err) =>
+            error: (err) => {
+                this.openSnackBar('Une erreur est survenue 🤔', 'Fermer', 0);
                 console.log(
                     "Erreur lors de la récupération de l'utilisateur:",
                     err
-                ),
+                );
+            },
         });
     }
 
@@ -85,13 +87,13 @@ export class ModalUpdatingUserOverviewComponent
                             0
                         );
                     } else {
-                        console.error('Error fetching users:', err);
                         this.openSnackBar(
                             'Une erreur est survenue 🤔',
                             'Fermer',
                             0
                         );
                     }
+                    console.log("Erreur lors de la MAJ de l'utilisateur:", err);
                 },
             });
     }

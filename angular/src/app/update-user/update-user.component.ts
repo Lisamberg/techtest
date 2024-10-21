@@ -14,6 +14,8 @@ export class UpdateUserComponent {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             const userId = params.get('id');
+            // Unable to get route parameters from the modal
+            // Passing the route parameter 'userId' directly here instead
             this.dialog.open(ModalUpdatingUserOverviewComponent, {
                 data: {
                     userId,
