@@ -87,9 +87,13 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
         this.dialogRef.close();
     }
 
-    openSnackBar(message: string) {
-        this._snackBar.open(message, '', {
-            duration: 2000,
+    openSnackBar(
+        message: string,
+        action: string = '',
+        duration: number = 2000
+    ) {
+        this._snackBar.open(message, action, {
+            duration: duration,
         });
     }
 
@@ -106,7 +110,22 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
                     this.dialogRef.close();
                     this.shouldReloadUsersList = true;
                 },
-                error: (err) => console.error('Error fetching users:', err),
+                error: (err) => {
+                    if (err.status === 400) {
+                        this.openSnackBar(
+                            'Erreur: utilisateur déjà existant ⛔',
+                            'Fermer',
+                            0
+                        );
+                    } else {
+                        console.error('Error fetching users:', err);
+                        this.openSnackBar(
+                            'Une erreur est survenue 🤔',
+                            'Fermer',
+                            0
+                        );
+                    }
+                },
             });
     }
 }
