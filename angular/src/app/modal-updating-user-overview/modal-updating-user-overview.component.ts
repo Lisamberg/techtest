@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
     MatDialogActions,
     MatDialogClose,
@@ -6,7 +6,6 @@ import {
     MatDialogRef,
     MatDialogTitle,
 } from '@angular/material/dialog';
-import { AddUserComponent } from '../add-user/add-user.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalComponent } from '../modal-common/modal-component';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
     selector: 'app-modal-updating-user-overview',
@@ -36,22 +36,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './modal-updating-user-overview.component.html',
     styleUrl: './modal-updating-user-overview.component.css',
 })
-export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
-    _snackBar = inject(MatSnackBar);
-    firstName = '';
-    lastName = '';
-    shouldReloadUsersList = false;
-
+export class ModalUpdatingUserOverviewComponent
+    extends ModalComponent
+    implements OnDestroy, OnInit
+{
     constructor(
-        public dialogRef: MatDialogRef<AddUserComponent>,
-        public router: Router,
-        public route: ActivatedRoute,
-        private userService: UserService,
-        @Inject(MAT_DIALOG_DATA) public data: { userId: string }
-    ) {}
+        public userService: UserService,
+        dialogRef: MatDialogRef<UpdateUserComponent>,
+        router: Router,
+        route: ActivatedRoute,
+        @Inject(MAT_DIALOG_DATA) data: { userId: string }
+    ) {
+        super(dialogRef, router, route, data);
+    }
 
     ngOnInit(): void {
-        // Appeler le service pour obtenir les détails de l'utilisateur
         this.userService.getUser(this.data.userId).subscribe({
             next: (data) => {
                 this.firstName = data.firstName;
@@ -62,38 +61,6 @@ export class ModalUpdatingUserOverviewComponent implements OnDestroy, OnInit {
                     "Erreur lors de la récupération de l'utilisateur:",
                     err
                 ),
-        });
-    }
-
-    isFormValid(): boolean {
-        const namePattern = /^[a-zA-Z\s'-]+$/; // Autorise uniquement les lettres, les espaces les tirets et les ' (O'connor)
-        return (
-            this.firstName.trim() !== '' &&
-            this.lastName.trim() !== '' &&
-            namePattern.test(this.firstName) &&
-            namePattern.test(this.lastName)
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.router.navigateByUrl('/', {
-            state: {
-                shouldReloadUsersList: this.shouldReloadUsersList,
-            },
-        });
-    }
-
-    onNoClick(): void {
-        this.dialogRef.close();
-    }
-
-    openSnackBar(
-        message: string,
-        action: string = '',
-        duration: number = 2000
-    ) {
-        this._snackBar.open(message, action, {
-            duration: duration,
         });
     }
 
