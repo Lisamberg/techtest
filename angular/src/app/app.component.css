@@ -30,3 +30,16 @@ a:-webkit-any-link {
     text-decoration: none;
     cursor: pointer;
 }
+
+.mdc-data-table__row:hover {
+    background-color: #3f2b56;
+    color: #fff;
+}
+
+.mdc-data-table__row:hover td {
+    color: #fff;
+}
+
+.mdc-data-table__row a:first-of-type {
+    margin-right: 0.3rem;
+}
