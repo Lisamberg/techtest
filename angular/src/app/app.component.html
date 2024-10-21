@@ -1,37 +1,29 @@
 <main>
-    <div
-        class="logo-container"
-        style="
-            padding: 0.75em 0;
-            background: #3f2b56;
-            display: block;
-            text-align: center;
-            max-width: 550px;
-        "
-    >
-        <!-- <img src="assets/public/logo_myd.png" alt="Logo MyDiabby" /> -->
+    <div class="logo-container">
         <img src="assets/public/logo-mdhc-mixed.svg" alt="myDiabby" />
     </div>
-    <div>
-        <p style="color: #6639a6">Add User</p>
-        <a [routerLink]="['add']"
-            ><button
-                mat-icon-button
-                aria-label="Button that displays a tooltip when focused or hovered over"
-                matTooltip="Add new user"
-                style="background-color: #6639a6"
-            >
-                <mat-icon
-                    aria-hidden="false"
-                    aria-label="Icon of plus"
-                    fontIcon="add"
-                    style="color: #ffff"
-                ></mat-icon>
-            </button>
+    <div class="adder-container">
+        <p id="adder-text">Add User</p>
+        <a [routerLink]="['add']">
+            <div style="text-align: center">
+                <button
+                    id="adder-button"
+                    mat-icon-button
+                    aria-label="Button that displays a tooltip when focused or hovered over"
+                    matTooltip="Add new user"
+                >
+                    <mat-icon
+                        id="plus-icon"
+                        aria-hidden="false"
+                        aria-label="Icon of plus"
+                        fontIcon="add"
+                    ></mat-icon>
+                </button>
+            </div>
         </a>
     </div>
 
-    <div class="mat-elevation-z8" style="max-width: 550px">
+    <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="No">
                 <th mat-header-cell *matHeaderCellDef>No</th>
@@ -45,18 +37,18 @@
                 <td mat-cell *matCellDef="let user">{{ user.id }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef>lastName</th>
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Nom</th>
                 <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef>firstName</th>
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>Prénom</th>
                 <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>actions</th>
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let user">
                     <a [routerLink]="['edit', user.id]">🖊️</a>
                     <a (click)="deleteUser(user.id)" class="trash">🗑️</a>
@@ -70,7 +62,7 @@
         <mat-paginator
             [pageSizeOptions]="[5, 10, 20]"
             showFirstLastButtons
-            aria-label="Select page of users"
+            aria-label="Selection page d'utilisateurs"
         >
         </mat-paginator>
     </div>
