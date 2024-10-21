@@ -28,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getFrenchPaginatorIntl } from './paginator/paginator-custom.intl';
 
 @Component({
     selector: 'app-root',
@@ -45,7 +47,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         MatButtonModule,
         MatTooltipModule,
     ],
-    providers: [UserService],
+    providers: [
+        UserService,
+        { provide: MatPaginatorIntl, useValue: getFrenchPaginatorIntl() },
+    ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })
