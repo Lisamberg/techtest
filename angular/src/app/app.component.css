@@ -37,10 +37,12 @@ main {
 #adder-text {
     color: #6639a6;
     font-size: 1rem;
+    font-weight: 500;
 }
 
 .mat-elevation-z8 {
     max-width: 550px;
+    margin: 0.25rem;
 }
 
 .content {
