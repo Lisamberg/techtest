@@ -15,6 +15,13 @@
 <div style="display: flex; justify-content: flex-end">
     <mat-dialog-actions>
         <button mat-button (click)="onNoClick()">Cancel</button>
-        <button mat-button (click)="onAdd()" cdkFocusInitial>Add</button>
+        <button
+            mat-button
+            (click)="onAdd()"
+            [disabled]="!isFormValid()"
+            cdkFocusInitial
+        >
+            Add
+        </button>
     </mat-dialog-actions>
 </div>
