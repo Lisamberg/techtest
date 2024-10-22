@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalComponent } from '../modal-common/modal-component';
 import { UpdateUserComponent } from '../update-user/update-user.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-modal-updating-user-overview',
@@ -31,6 +32,7 @@ import { UpdateUserComponent } from '../update-user/update-user.component';
         MatDialogClose,
         HttpClientModule,
         RouterModule,
+        CommonModule,
     ],
     providers: [UserService],
     templateUrl: './modal-updating-user-overview.component.html',

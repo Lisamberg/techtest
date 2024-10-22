@@ -4,11 +4,62 @@
     <div style="display: flex; flex-direction: column; gap: 16px">
         <mat-form-field>
             <mat-label>Prénom</mat-label>
-            <input matInput [(ngModel)]="firstName" />
+            <input
+                matInput
+                [(ngModel)]="firstName"
+                name="firstName"
+                #firstNameInput="ngModel"
+                required
+                maxlength="150"
+                pattern="^[a-zA-Z\s'-]+$"
+            />
+            <mat-error
+                *ngIf="
+                    firstNameInput.invalid &&
+                    (firstNameInput.dirty || firstNameInput.touched)
+                "
+            >
+                <span *ngIf="firstNameInput.errors?.['required']"
+                    >Le prénom est requis.</span
+                >
+                <span *ngIf="firstNameInput.errors?.['maxlength']"
+                    >Le prénom ne doit pas dépasser 150 caractères.</span
+                >
+                <span *ngIf="firstNameInput.errors?.['pattern']"
+                    >Le prénom contient des caractères non autorisés.</span
+                >
+            </mat-error>
         </mat-form-field>
+
         <mat-form-field>
             <mat-label>Nom de famille</mat-label>
-            <input matInput [(ngModel)]="lastName" />
+            <input
+                matInput
+                [(ngModel)]="lastName"
+                name="lastName"
+                #lastNameInput="ngModel"
+                required
+                maxlength="150"
+                pattern="^[a-zA-Z\s'-]+$"
+            />
+            <mat-error
+                *ngIf="
+                    lastNameInput.invalid &&
+                    (lastNameInput.dirty || lastNameInput.touched)
+                "
+            >
+                <span *ngIf="lastNameInput.errors?.['required']"
+                    >Le nom de famille est requis.</span
+                >
+                <span *ngIf="lastNameInput.errors?.['maxlength']"
+                    >Le nom de famille ne doit pas dépasser 150
+                    caractères.</span
+                >
+                <span *ngIf="lastNameInput.errors?.['pattern']"
+                    >Le nom de famille contient des caractères non
+                    autorisés.</span
+                >
+            </mat-error>
         </mat-form-field>
     </div>
 </mat-dialog-content>

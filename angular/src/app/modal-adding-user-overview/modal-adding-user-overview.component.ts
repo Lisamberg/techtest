@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from '../modal-common/modal-component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-modal-adding-user-overview',
@@ -30,6 +31,7 @@ import { ModalComponent } from '../modal-common/modal-component';
         MatDialogActions,
         MatDialogClose,
         HttpClientModule,
+        CommonModule,
     ],
     providers: [UserService],
     templateUrl: './modal-adding-user-overview.component.html',
