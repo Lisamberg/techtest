@@ -1,27 +1,78 @@
-<h2 mat-dialog-title>Adding User</h2>
+<h2 mat-dialog-title>Ajout d'un utilisateur</h2>
 <mat-dialog-content>
-    <p>User information</p>
+    <p>Informations de l'utilisateur</p>
     <div style="display: flex; flex-direction: column; gap: 16px">
         <mat-form-field>
-            <mat-label>FirstName</mat-label>
-            <input matInput [(ngModel)]="firstName" />
+            <mat-label>Prénom</mat-label>
+            <input
+                matInput
+                [(ngModel)]="firstName"
+                name="firstName"
+                #firstNameInput="ngModel"
+                required
+                maxlength="150"
+                pattern="^[a-zA-Z\s'-]+$"
+            />
+            <mat-error
+                *ngIf="
+                    firstNameInput.invalid &&
+                    (firstNameInput.dirty || firstNameInput.touched)
+                "
+            >
+                <span *ngIf="firstNameInput.errors?.['required']"
+                    >Le prénom est requis.</span
+                >
+                <span *ngIf="firstNameInput.errors?.['maxlength']"
+                    >Le prénom ne doit pas dépasser 150 caractères.</span
+                >
+                <span *ngIf="firstNameInput.errors?.['pattern']"
+                    >Le prénom contient des caractères non autorisés.</span
+                >
+            </mat-error>
         </mat-form-field>
+
         <mat-form-field>
-            <mat-label>LastName</mat-label>
-            <input matInput [(ngModel)]="lastName" />
+            <mat-label>Nom de famille</mat-label>
+            <input
+                matInput
+                [(ngModel)]="lastName"
+                name="lastName"
+                #lastNameInput="ngModel"
+                required
+                maxlength="150"
+                pattern="^[a-zA-Z\s'-]+$"
+            />
+            <mat-error
+                *ngIf="
+                    lastNameInput.invalid &&
+                    (lastNameInput.dirty || lastNameInput.touched)
+                "
+            >
+                <span *ngIf="lastNameInput.errors?.['required']"
+                    >Le nom de famille est requis.</span
+                >
+                <span *ngIf="lastNameInput.errors?.['maxlength']"
+                    >Le nom de famille ne doit pas dépasser 150
+                    caractères.</span
+                >
+                <span *ngIf="lastNameInput.errors?.['pattern']"
+                    >Le nom de famille contient des caractères non
+                    autorisés.</span
+                >
+            </mat-error>
         </mat-form-field>
     </div>
 </mat-dialog-content>
 <div style="display: flex; justify-content: flex-end">
     <mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="onNoClick()">Quitter</button>
         <button
             mat-button
             (click)="onAdd()"
             [disabled]="!isFormValid()"
             cdkFocusInitial
         >
-            Add
+            Créer
         </button>
     </mat-dialog-actions>
 </div>
