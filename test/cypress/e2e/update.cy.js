@@ -84,7 +84,6 @@ describe("User Edition", () => {
                 lastName: "Doe",
             });
             cy.wait("@userList").its("response.statusCode").should("eq", 200); //Le refresh doit etre fait
-            cy.screenshot("update ok");
         });
     });
 });
