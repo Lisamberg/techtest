@@ -24,47 +24,59 @@
     </div>
 
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="No">
-                <th mat-header-cell *matHeaderCellDef>No</th>
-                <td mat-cell *matCellDef="let user; let i = index">
-                    {{ i + 1 }}
-                </td>
-            </ng-container>
+        <div
+            id="table-container"
+            style="max-height: 400px; overflow-y: auto; padding: 0"
+        >
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="No">
+                    <th mat-header-cell *matHeaderCellDef>No</th>
+                    <td mat-cell *matCellDef="let user; let i = index">
+                        {{ i + 1 }}
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="ID">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-            </ng-container>
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef>Nom</th>
-                <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
-            </ng-container>
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef>Nom</th>
+                    <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef>Prénom</th>
-                <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
-            </ng-container>
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef>Prénom</th>
+                    <td mat-cell *matCellDef="let user">
+                        {{ user.firstName }}
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let user">
-                    <a class="update-user pen" [routerLink]="['edit', user.id]"
-                        ><span title="Modifier l'utilisateur">🖊️</span></a
-                    >
-                    <a
-                        class="delete-user trash"
-                        (click)="deleteUser(user.id)"
-                        id="trash"
-                        ><span title="Supprimer l'utilisateur">🗑️</span></a
-                    >
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let user">
+                        <a
+                            class="update-user pen"
+                            [routerLink]="['edit', user.id]"
+                            ><span title="Modifier l'utilisateur">🖊️</span></a
+                        >
+                        <a
+                            class="delete-user trash"
+                            (click)="deleteUser(user.id)"
+                            id="trash"
+                            ><span title="Supprimer l'utilisateur">🗑️</span></a
+                        >
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+            </table>
+        </div>
 
         <mat-paginator
             [pageSizeOptions]="[5, 10, 20]"

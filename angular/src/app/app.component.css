@@ -22,6 +22,11 @@ main {
     max-width: 550px;
 }
 
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
 .adder-container {
     margin-bottom: 3rem;
 }
