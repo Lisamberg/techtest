@@ -1,19 +1,19 @@
 services:
     frontend_test:
         build:
-            dockerfile: .docker/angular/Dockerfile
+            dockerfile: ../../.docker/angular/Dockerfile
         restart: unless-stopped
         volumes:
-            - ./angular:/home/node/app
+            - ../:/home/node/app
         container_name: frontend_test
         ports:
             - ${FRONTEND_TEST_PORT}:4200
 
     cypress:
         build:
-            dockerfile: .docker/cypress/Dockerfile
+            dockerfile: ../../.docker/cypress/Dockerfile
         volumes:
             - /cypress/node_modules
-            - ./test/cypress:/cypress
+            - ./cypress:/cypress
         depends_on:
             - frontend_test
