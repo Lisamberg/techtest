@@ -54,7 +54,8 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 
-.trash {
+.trash,
+.pen {
     text-decoration: none;
     cursor: pointer;
 }

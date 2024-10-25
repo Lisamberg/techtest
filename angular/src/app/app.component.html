@@ -50,10 +50,13 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let user">
-                    <a [routerLink]="['edit', user.id]"
+                    <a class="update-user pen" [routerLink]="['edit', user.id]"
                         ><span title="Modifier l'utilisateur">🖊️</span></a
                     >
-                    <a (click)="deleteUser(user.id)" class="trash"
+                    <a
+                        class="delete-user trash"
+                        (click)="deleteUser(user.id)"
+                        id="trash"
                         ><span title="Supprimer l'utilisateur">🗑️</span></a
                     >
                 </td>

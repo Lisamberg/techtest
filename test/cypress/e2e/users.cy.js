@@ -9,15 +9,13 @@ describe("User Data Fetching and Pagination", () => {
 
     it("Displays the correct number of items per page", () => {
         cy.get(".mat-mdc-select-min-line") // Récupérer la limite par page dans l'interface
-            .invoke("text") // Le texte
+            .invoke("text")
             .then((limit) => {
-                cy.log(limit); // Affiche la limite dans la console
-
                 // Charger les données de la fixture
                 cy.fixture("users.json").then((data) => {
-                    const nbOfUsers = data.length; // Compter le nombre d'utilisateurs
+                    const nbOfUsers = data.length; // le nombre d'utilisateurs
 
-                    // Vérifier que l'étiquette de pagination affiche les valeurs correctes
+                    // Vérifier que le composant de pagination affiche les valeurs correctes
                     cy.get(".mat-mdc-paginator-range-label").should(
                         "contain.text",
                         `1 - ${limit} de ${nbOfUsers}`
@@ -30,15 +28,14 @@ describe("User Data Fetching and Pagination", () => {
         cy.get(".mat-mdc-select-min-line") // Récupérer la limite par page dans l'interface
             .invoke("text")
             .then((limit) => {
-                cy.get("tr.mat-mdc-row") // Sélecteur pour les lignes du tableau
-                    .should("have.length", limit); // Vérifie qu'il y a 5 éléments
+                cy.get("tr.mat-mdc-row").should("have.length", limit); // Vérifie qu'il y le bon nombre de lignes dans la table
             });
     });
 
     it("Should ensure each row contains 5 data cells with valid content", () => {
         // Sélecteur pour les lignes du tableau
         cy.get("tr.mat-mdc-row").each(($row) => {
-            // Vérifie que chaque ligne contient exactement 5 cellules <td>
+            // Vérifie que chaque ligne contient exactement 5 cellules car par défaut la limite est 5
             cy.wrap($row)
                 .find("td.mat-mdc-cell")
                 .should("have.length", 5)
