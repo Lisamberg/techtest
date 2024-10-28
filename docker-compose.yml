@@ -10,8 +10,10 @@ services:
             DB_USER: root
             DB_PASS: pass
             DB_NAME: postgres
+            DB_PORT: 5432
+
         volumes:
-            - ./nest:/home/node/app
+            - ./api:/home/node/app
         depends_on:
             - db
 
@@ -24,6 +26,18 @@ services:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: pass
             POSTGRES_DB: postgres
+
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+            PGADMIN_DEFAULT_PASSWORD: admin
+            PGADMIN_CONFIG_SERVER_MODE: "False"
+        ports:
+            - "5050:80"
+        depends_on:
+            - db
 
     angular:
         build:
