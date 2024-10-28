@@ -1,0 +1,17 @@
+entity: User
+items:
+    user1:
+        firstName: "kylian"
+        lastName: "Mbappe"
+    user2:
+        firstName: "Lucas"
+        lastName: "Modric"
+    user3:
+        firstName: "Toni"
+        lastName: "Kroos"
+    user4:
+        firstName: "Robert"
+        lastName: "Lewandowski"
+    user5:
+        firstName: "Antoine"
+        lastName: "Griezmann"
