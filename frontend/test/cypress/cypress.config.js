@@ -3,11 +3,11 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
     e2e: {
         supportFile: false,
-        specPattern: "./e2e/**.cy.js",
+        specPattern: "/cypress/e2e/**.cy.js",
     },
     env: {
-        baseUrl: "http://localhost:4200",
+        baseUrl: "http://frontend_test:4200",
     },
-    fixturesFolder: "./fixtures",
-    screenshotsFolder: ".//screenshots",
+    fixturesFolder: "/cypress/fixtures",
+    screenshotsFolder: "/cypress/screenshots",
 });
