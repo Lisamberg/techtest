@@ -1,13 +1,14 @@
 describe("User Addition", () => {
     beforeEach(() => {
         cy.intercept(
-            { method: "POST", path: "user" },
+            { method: "POST", url: "users" },
             {
+                body: { data: null },
                 statusCode: 200,
             }
         ).as("addUser");
         cy.intercept(
-            { method: "GET", path: "users" },
+            { method: "GET", url: "users" },
             { fixture: "users.json" }
         ).as("userList");
         cy.visit(Cypress.env("baseUrl"));
@@ -47,9 +48,12 @@ describe("User Addition", () => {
 
         cy.get('label[for="firstName"]').click();
         cy.get('input[name="firstName"]').type("John");
+        cy.wait(500);
+        cy.get('input[name="firstName"]').should("have.value", "John");
 
         cy.get('label[for="lastName"]').click();
         cy.get('input[name="lastName"]').type("Doe");
+        cy.get('input[name="lastName"]').should("have.value", "Doe");
 
         cy.get("#adder").click();
         cy.get("mat-dialog-container").should("not.exist");

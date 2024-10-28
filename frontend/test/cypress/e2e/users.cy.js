@@ -1,7 +1,7 @@
 describe("User Data Fetching and Pagination", () => {
     beforeEach(() => {
         cy.intercept(
-            { method: "GET", path: "users" },
+            { method: "GET", url: "users" },
             { fixture: "users.json" }
         );
         cy.visit(Cypress.env("baseUrl"));
@@ -12,7 +12,7 @@ describe("User Data Fetching and Pagination", () => {
             .invoke("text")
             .then((limit) => {
                 // Charger les données de la fixture
-                cy.fixture("users.json").then((data) => {
+                cy.fixture("users.json").then(({ data }) => {
                     const nbOfUsers = data.length; // le nombre d'utilisateurs
 
                     // Vérifier que le composant de pagination affiche les valeurs correctes

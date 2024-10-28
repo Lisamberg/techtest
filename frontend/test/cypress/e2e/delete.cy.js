@@ -1,16 +1,17 @@
 describe("User Deletion", () => {
     beforeEach(() => {
         cy.intercept(
-            { method: "GET", path: "users" },
+            { method: "GET", url: "users" },
             { fixture: "users.json" }
         ).as("userList");
 
         cy.intercept(
             {
                 method: "DELETE",
-                url: "user/*",
+                url: "users/*",
             },
             {
+                body: { data: null },
                 statusCode: 200,
             }
         ).as("deleteUser");
@@ -20,7 +21,7 @@ describe("User Deletion", () => {
 
     it("should delete user", () => {
         cy.get(".delete-user").first().click();
-        cy.fixture("user.json").then((data) => {
+        cy.fixture("user.json").then(({ data }) => {
             cy.wait("@deleteUser").then((interception) => {
                 expect(interception.request.url).to.include(data.id);
                 cy.get(".mat-mdc-snack-bar-label")

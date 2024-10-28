@@ -1,19 +1,20 @@
 describe("User Edition", () => {
     beforeEach(() => {
         cy.intercept(
-            { method: "GET", path: "users" },
+            { method: "GET", url: "users" },
             { fixture: "users.json" }
         ).as("userList");
         cy.intercept(
-            { method: "PUT", path: "user" },
+            { method: "PUT", url: "users/*" },
             {
+                body: { data: null },
                 statusCode: 200,
             }
         ).as("editUser");
         cy.intercept(
             {
                 method: "GET",
-                url: "user/*",
+                url: "users/*",
             },
             { fixture: "user.json" }
         ).as("userDetail");
@@ -35,7 +36,7 @@ describe("User Edition", () => {
         cy.get('label[for="firstName"]').should("be.visible");
         cy.get('label[for="firstName"]').click();
 
-        cy.fixture("user.json").then((data) => {
+        cy.fixture("user.json").then(({ data }) => {
             cy.get('input[name="firstName"]').should(
                 "have.value",
                 data.firstName
@@ -77,7 +78,7 @@ describe("User Edition", () => {
             .and("contain", "Utilisateur modifié ✔️");
 
         // Attendre que la requête soit interceptée et vérifier les data d'update
-        cy.fixture("user.json").then((data) => {
+        cy.fixture("user.json").then(({ data }) => {
             cy.wait("@editUser").its("request.body").should("deep.equal", {
                 id: data.id,
                 firstName: "John",
